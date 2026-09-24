@@ -28,7 +28,7 @@ int main() {
         printf("Pilih menu: ");
         if (scanf("%d", &choice) != 1) {
             printf("Input tidak valid. Silakan masukkan angka.\n");
-            while (getchar() != '\n'); // Membersihkan buffer input
+            while (getchar() != '\n');
             continue;
         }
         switch (choice) {
