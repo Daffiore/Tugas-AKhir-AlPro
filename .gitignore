@@ -1,0 +1,8 @@
+# Abaikan executable Windows
+*.exe
+
+# Abaikan biner Linux/Mac (karena di Makefile outputnya bernama 'parkir')
+parkir
+
+# Abaikan object files jika ada
+*.o
