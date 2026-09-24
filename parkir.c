@@ -94,7 +94,7 @@ void keluar(tempatparkir* area, int* hitung) {
     scanf(" %19[^\n]", cariplat);
     while (getchar() != '\n');
     for(int j=0; cariplat[j] != '\0'; j++) {
-        cariplat[j] = toupper(cariplat[j] != '\0');
+        cariplat[j] = toupper(cariplat[j]);
     }
     int found = 0;
     for (int i = 0; i < isiparkiran; i++) {
