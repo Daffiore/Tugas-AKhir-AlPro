@@ -76,7 +76,7 @@ void masuk(tempatparkir* area, int* hitung) {
             printf("\n--- Formulir Masuk ---\n");
             printf("Masukkan Plat Nomor (Contoh: B 1234 XYZ): ");
             scanf(" %19[^\n]", area[i].plat);
-            while (getchar() != '\n');  // Membersihkan sisa buffer newline
+            while (getchar() != '\n');
 
             for (int j = 0; area[i].plat[j] != '\0'; j++) {
                 area[i].plat[j] = toupper(area[i].plat[j]);
@@ -85,10 +85,10 @@ void masuk(tempatparkir* area, int* hitung) {
             printf("Jenis Kendaraan (1 = Mobil, 2 = Motor): ");
             scanf("%d", &area[i].tipe);
             while (getchar() !=
-                   '\n');  // Mencegah buffer bocor ke input berikutnya
+                   '\n');
 
             area[i].waktu_masuk =
-                time(NULL);  // Mencatat timestamp detik saat ini
+                time(NULL);
             area[i].terisi = 1;
             (*hitung)++;
 
@@ -118,14 +118,12 @@ void keluar(tempatparkir* area, int* hitung) {
         if (area[i].terisi == 1 && strcmp(area[i].plat, cariplat) == 0) {
             time_t waktu_keluar = time(NULL);
             double selisih_detik = difftime(waktu_keluar, area[i].waktu_masuk);
-
-            // Konversi ke jam dan bulatkan ke atas
             int duration = (int)(selisih_detik / 3600);
             if ((int)selisih_detik % 3600 > 0) {
                 duration++;
             }
             if (duration == 0) {
-                duration = 1;  // Minimal hitungan 1 jam
+                duration = 1;
             }
 
             int fee =
@@ -155,8 +153,6 @@ void kendaraan(tempatparkir* area) {
     int count = 0;
     for (int i = 0; i < isiparkiran; i++) {
         if (area[i].terisi == 1) {
-            // Memformat timestamp menjadi string jam yang bisa dibaca
-            // (HH:MM:SS)
             struct tm* info_waktu = localtime(&area[i].waktu_masuk);
             char buffer_waktu[20];
             strftime(buffer_waktu, sizeof(buffer_waktu), "%H:%M:%S",
