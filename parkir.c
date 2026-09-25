@@ -22,11 +22,9 @@ int main() {
     tempatparkir parkiran[isiparkiran];
     int mulai = 0;
     int choice;
-
     for (int i = 0; i < isiparkiran; i++) {
         parkiran[i].terisi = 0;
     }
-
     do {
         display();
         printf("Pilih menu: ");
@@ -35,7 +33,6 @@ int main() {
             while (getchar() != '\n');
             continue;
         }
-
         switch (choice) {
             case 1:
                 masuk(parkiran, &mulai);
@@ -53,7 +50,6 @@ int main() {
                 printf("\nPilihan tidak valid. Silakan coba lagi.\n");
         }
     } while (choice != 4);
-
     return 0;
 }
 
@@ -70,28 +66,22 @@ void masuk(tempatparkir* area, int* hitung) {
         printf("\nMaaf, kapasitas parkir penuh!\n");
         return;
     }
-
     for (int i = 0; i < isiparkiran; i++) {
         if (area[i].terisi == 0) {
             printf("\n--- Formulir Masuk ---\n");
             printf("Masukkan Plat Nomor (Contoh: B 1234 XYZ): ");
             scanf(" %19[^\n]", area[i].plat);
             while (getchar() != '\n');
-
             for (int j = 0; area[i].plat[j] != '\0'; j++) {
                 area[i].plat[j] = toupper(area[i].plat[j]);
             }
-
             printf("Jenis Kendaraan (1 = Mobil, 2 = Motor): ");
             scanf("%d", &area[i].tipe);
-            while (getchar() !=
-                   '\n');
-
+            while (getchar() !='\n');
             area[i].waktu_masuk =
                 time(NULL);
             area[i].terisi = 1;
             (*hitung)++;
-
             printf("Berhasil! Kendaraan diparkir pada slot ke-%d.\n", i + 1);
             break;
         }
@@ -103,16 +93,13 @@ void keluar(tempatparkir* area, int* hitung) {
         printf("\nParkiran saat ini kosong.\n");
         return;
     }
-
     char cariplat[20];
     printf("\nMasukkan Plat Nomor yang akan keluar: ");
     scanf(" %19[^\n]", cariplat);
     while (getchar() != '\n');
-
     for (int j = 0; cariplat[j] != '\0'; j++) {
         cariplat[j] = toupper(cariplat[j]);
     }
-
     int found = 0;
     for (int i = 0; i < isiparkiran; i++) {
         if (area[i].terisi == 1 && strcmp(area[i].plat, cariplat) == 0) {
@@ -125,17 +112,13 @@ void keluar(tempatparkir* area, int* hitung) {
             if (duration == 0) {
                 duration = 1;
             }
-
             int fee =
                 (area[i].tipe == 1) ? (duration * 5000) : (duration * 2000);
-
             printf("\n--- Struk Pembayaran Parkir ---\n");
             printf("Plat Nomor  : %s\n", area[i].plat);
-            printf("Jenis       : %s\n",
-                   (area[i].tipe == 1) ? "Mobil" : "Motor");
+            printf("Jenis       : %s\n",(area[i].tipe == 1) ? "Mobil" : "Motor");
             printf("Durasi      : %d jam\n", duration);
             printf("Total Biaya : Rp %d\n", fee);
-
             area[i].terisi = 0;
             (*hitung)--;
             found = 1;
@@ -143,8 +126,7 @@ void keluar(tempatparkir* area, int* hitung) {
         }
     }
     if (!found) {
-        printf("\nKendaraan dengan plat nomor '%s' tidak ditemukan.\n",
-               cariplat);
+        printf("\nKendaraan dengan plat nomor '%s' tidak ditemukan.\n",cariplat);
     }
 }
 
@@ -155,12 +137,8 @@ void kendaraan(tempatparkir* area) {
         if (area[i].terisi == 1) {
             struct tm* info_waktu = localtime(&area[i].waktu_masuk);
             char buffer_waktu[20];
-            strftime(buffer_waktu, sizeof(buffer_waktu), "%H:%M:%S",
-                     info_waktu);
-
-            printf("Slot %03d | Plat: %-12s | Tipe: %-5s | Masuk: %s\n", i + 1,
-                   area[i].plat, area[i].tipe == 1 ? "Mobil" : "Motor",
-                   buffer_waktu);
+            strftime(buffer_waktu, sizeof(buffer_waktu), "%H:%M:%S",info_waktu);
+            printf("Slot %03d | Plat: %-12s | Tipe: %-5s | Masuk: %s\n", i + 1,area[i].plat, area[i].tipe == 1 ? "Mobil" : "Motor",buffer_waktu);
             count++;
         }
     }
